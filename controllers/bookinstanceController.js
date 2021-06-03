@@ -48,10 +48,12 @@ exports.bookinstance_create_get = (req, res, next) => {
     if (err) {
       return next(err);
     }
+    let temp_status_list = ['Available', 'Maintenance', 'Loaned', 'Reserved'];
     // You are sucessful, and a unique snow flake, so render
     res.render('bookinstance_form', {
       title: 'Create Book Instance',
       book_list: books,
+      status_list: temp_status_list,
     });
   });
 };
@@ -185,14 +187,14 @@ exports.bookinstance_update_get = (req, res, next) => {
           .toISOString(0, 19)
           .substring(0, 10);
       }
-      let tem_status_list = ['Available', 'Maintenance', 'Loaned', 'Reserved'];
+      let temp_status_list = ['Available', 'Maintenance', 'Loaned', 'Reserved'];
 
       res.render('bookinstance_form', {
         title: 'Update Book Instance',
         book_list: results.books,
         bookinstance: results.bookinstance,
         due_back: string_due_back,
-        status_list: tem_status_list,
+        status_list: temp_status_list,
       });
     }
   );
