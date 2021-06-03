@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    h1 #{title}: #{genre.name}
+    p= genre._id
+
+    if genres_books.length
+
+        p #[strong Delete the following books, or remove the genre from the books, before attempting to delete this genre.]
+
+        div(style="margin-left:20px;margin-top:20px")
+
+            h4 Books
+            dl
+                each book in genres_books
+                    dt
+                        a(href=book.url) #{book.title}
+                        br
+                        p #[a(href=book.url+'/delete') Delete Book], #[a(href=book.url+'/update') Update Book]
+                    dd #{book.summary}
+    else
+        p Do you really wish to delete this genre?
+
+        form(method="POST" action="")
+            div.form-group
+                input#genreid.form-control(type='hidden', name='genreid', required='true', value=genre._id)
+            button.btn.btn-primary(type='submit') Delete
